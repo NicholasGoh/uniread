@@ -46,14 +46,15 @@ module.exports = {
 		});
 	},
 	transformChapters: (chapters) => {
-        const _text = [];
 		const text = [];
 		const links = [];
 
 		chapters.forEach((chapter) => {
+            const _text = [];
+
 			links.push({
 				name: chapter.title,
-				word: _text.length
+				word: text.length
 			});
 
 			chapter.content = chapter.content
@@ -69,7 +70,7 @@ module.exports = {
 
             for (let counter = 0; counter < _text.length; counter += 5){
                 text.push(_text.slice(counter, counter + 5).join(" "));
-            };
+            }
 
 		});
 

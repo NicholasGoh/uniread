@@ -19,7 +19,7 @@ module.exports = (book) => {
 		_chapter: -1,
 
 		_report: () => {
-			return "Speed: " + player._speed + "ms / " + (Math.round(60 * 1000 * 3 / player._speed)) + " WPM\nProgress: " + player._current + "/" + player._book.text.length + "\nTime left: " + player._niceTime();
+			return "Speed: " + player._speed + "ms / " + (Math.round(60 * 1000 / player._speed)) + " WPM\nProgress: " + player._current + "/" + player._book.text.length + "\nTime left: " + player._niceTime();
 		},
 
 		_niceTime: () => {
@@ -43,7 +43,7 @@ module.exports = (book) => {
 
 			var grid = new contrib.grid({rows: 12, cols: 12, screen: player._screen});
 
-			player._textBox = grid.set(4, 3, 2, 6.1, blessed.box, {
+			player._textBox = grid.set(4, 3, 2, 6, blessed.box, {
 				label: "Book"
 			});
 
@@ -188,20 +188,13 @@ module.exports = (book) => {
 		},
 
 		_focusText: (text) => {
-            let anchor = 46;
-            let middle = Math.round(text.length / 2);
+			let length = Math.ceil((7 - text.length) / 2);
 
-            text += "\n"
-            for(let i = anchor - 1; i > 0; i--){
-                text += " ";
-            }
+			for(let i = length; i > 0; i--){
+				text = " " + text;
+			}
 
-            while (middle < anchor){
-                middle++;
-                text = " " + text;
-            }
-
-            return text + "^";
+			return text+"\n   ^";
 		},
 
 		togglePlay: () => {
